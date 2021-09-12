@@ -25,41 +25,41 @@ class VendingMachine2 {
 
     /// ジュースを購入する
     /// - Parameters:
-    ///   - i: 投入金額. 100円と500円のみ受け付ける.
+    ///   - payment: 投入金額. 100円と500円のみ受け付ける.
     ///   - kindOfDrink: ジュースの種類.
     /// - Returns: 指定したジュース. 在庫不足や釣り銭不足で買えなかった場合は nil が返される.
-    func buy(i: Int, kindOfDrink: Int) -> Drink2? {
+    func buy(payment: Int, kindOfDrink: Int) -> Drink2? {
         // 100円と500円だけ受け付ける
-        if (i != 100) && (i != 500) {
-            charge += i
+        if (payment != 100) && (payment != 500) {
+            charge += payment
             return nil
         }
         
         if (kindOfDrink == Drink2.coke) && (quantityOfCoke == 0) {
-            charge += i
+            charge += payment
             return nil
         } else if (kindOfDrink == Drink2.dietCoke) && (quantityOfDietCoke == 0) {
-            charge += i
+            charge += payment
             return nil
         } else if (kindOfDrink == Drink2.tea) && (quantityOfTea == 0) {
-            charge += i
+            charge += payment
             return nil
         }
         
         // 釣り銭不足
-        if i == 500 && numberOf100Yen < 4 {
-            charge += i
+        if payment == 500 && numberOf100Yen < 4 {
+            charge += payment
             return nil
         }
         
-        if i == 100 {
+        if payment == 100 {
             // 100円を釣り銭に変える
             numberOf100Yen += 1
-        } else if i == 500 {
+        } else if payment == 500 {
             // 400円のお釣り
-            charge += (i - 100)
+            charge += (payment - 100)
             // 100円の釣り銭に変える
-            numberOf100Yen -= (i - 100) / 100
+            numberOf100Yen -= (payment - 100) / 100
         }
         
         if kindOfDrink == Drink2.coke {
